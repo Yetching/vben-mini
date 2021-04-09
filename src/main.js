@@ -3,10 +3,14 @@ import App from './App.vue';
 import 'ant-design-vue/dist/antd.css';
 
 import router from '/@/router';
+import store from '/@/store/index.js';
+
+console.log(store);
 
 (async () => {
   const app = createApp(App);
   app.use(router);
+  app.use(store);
   await router.isReady();
 
   app.mount('#app', true);
