@@ -22,6 +22,7 @@ import { ConfigProvider, Radio } from 'ant-design-vue'  //按需引入
 import HelloWorld from "./components/HelloWorld.vue";
 import { useLocale } from '/@/hooks/web/useLocale'
 import AppProvider from './components/Application/src/AppProvider.vue'
+import { initAppConfigStore } from '/@/logics/initAppConfig.js'
 // import { useLockPage } from '/@/hooks/web/useLockPage'
 
 export default defineComponent({
@@ -35,6 +36,7 @@ export default defineComponent({
   },
   setup () {
     console.log('init!!!')
+    initAppConfigStore()
     const bol = ref(true)
     const getLocale = useLocale(bol.value)
     console.log(getLocale)
