@@ -1,3 +1,7 @@
+import { PROJ_CFG_KEY } from '/@/enums/cacheEnum.js';
+import { Persistent } from '/@/utils/cache/persistent.js';
+import { deepMerge } from '/@/utils';
+
 const state = () => ({
   pageLoadingState: false,
   projectConfigState: {},
@@ -30,13 +34,13 @@ const mutations = {
   commitLockMainScrollState(state, lock) {
     state.lockMainScrollState = lock;
   },
-  commitProjectConfig(state, proCfg) {
-    // state.projectConfigState = deepMerge(
-    //   state.projectConfigState || {},
-    //   proCfg
-    // );
-    // Persistent.setLocal(PROJ_CFG_KEY, state.projectConfigState);
-    console.log(proCfg);
+  commitProjectConfigState(state, proCfg) {
+    state.projectConfigState = deepMerge(
+      state.projectConfigState || {},
+      proCfg
+    );
+    Persistent.setLocal(PROJ_CFG_KEY, state.projectConfigState);
+    console.log(state.projectConfigState);
   },
 };
 

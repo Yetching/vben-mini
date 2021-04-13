@@ -20,6 +20,7 @@ import { useStore, mapMutations } from "vuex";
 export default defineComponent({
   setup() {
     const store = useStore();
+    console.log(store);
     const loadingState = store.state.app.pageLoadingState; //要跟随变化必须使用computed计算属性
     function changeState() {
       store.commit("app/commitPageLoadingState", true);
