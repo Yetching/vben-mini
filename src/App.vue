@@ -24,6 +24,7 @@ import { useLocale } from '/@/hooks/web/useLocale'
 import AppProvider from './components/Application/src/AppProvider.vue'
 import { initAppConfigStore } from '/@/logics/initAppConfig.js'
 // import { useLockPage } from '/@/hooks/web/useLockPage'
+import { useTitle } from '/@/hooks/web/useTitle'
 
 export default defineComponent({
   name: "App",
@@ -37,6 +38,7 @@ export default defineComponent({
   setup () {
     console.log('init!!!')
     initAppConfigStore()
+    useTitle()
     const bol = ref(true)
     const getLocale = useLocale(bol.value)
     console.log(getLocale)

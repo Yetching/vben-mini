@@ -1,11 +1,13 @@
 import { createStore, createLogger } from 'vuex';
 import app from './modules/app.js';
+import locale from './modules/locale';
 
 const debug = process.env.NODE_ENV != 'production';
 
 const store = createStore({
   modules: {
     app,
+    locale,
   },
 
   strict: debug,

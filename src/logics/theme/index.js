@@ -3,7 +3,7 @@ import {
   generateColors,
 } from '../../../build/config/themeConfig';
 
-import { replaceStyleVariables } from 'vite-plugin-theme/es/client.js';
+// import { replaceStyleVariables } from 'vite-plugin-theme/es/client.js';
 import {
   mixLighten,
   mixDarken,
