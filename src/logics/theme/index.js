@@ -3,7 +3,7 @@ import {
   generateColors,
 } from '../../../build/config/themeConfig';
 
-// import { replaceStyleVariables } from 'vite-plugin-theme/es/client.js';
+import { replaceStyleVariables } from 'vite-plugin-theme/es/client';
 import {
   mixLighten,
   mixDarken,
@@ -17,7 +17,7 @@ export async function changeTheme(color, theme) {
     tinycolor,
     color,
   });
-
+  console.log([...getThemeColors(color, theme), ...colors]);
   return await replaceStyleVariables({
     colorVariables: [...getThemeColors(color, theme), ...colors],
   });

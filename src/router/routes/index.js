@@ -1,10 +1,12 @@
+import { t } from '/@/hooks/web/useI18n';
+
 const routes = [
   {
     path: '/',
     name: 'home',
     component: () => import('/@/views/index.vue'),
     meta: {
-      titleL: '透你猴子',
+      title: t('routes.basic.home'),
     },
   },
 ];

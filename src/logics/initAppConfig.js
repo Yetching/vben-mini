@@ -29,9 +29,10 @@ export function initAppConfigStore() {
       headerSetting: { bgColor: headerBgColor } = {},
       menuSetting: { bgColor } = {},
     } = projCfg;
-    if (themeColor && themeColor !== primaryColor) {
+    console.log(themeColor);
+    if (themeColor && themeColor == !primaryColor) {
       console.log(8888888888);
-      // changeTheme(themeColor);
+      changeTheme(themeColor);
     }
     headerBgColor && updateHeaderBgColor(headerBgColor);
     bgColor && updateSidebarBgColor(bgColor);

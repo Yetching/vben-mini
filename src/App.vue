@@ -21,9 +21,10 @@ import { defineComponent, ref } from "vue";
 import { ConfigProvider, Radio } from 'ant-design-vue'  //按需引入
 import HelloWorld from "./components/HelloWorld.vue";
 import { useLocale } from '/@/hooks/web/useLocale'
+import { useLocale as useLoc } from '/@/locales/useLocale'
 import AppProvider from './components/Application/src/AppProvider.vue'
 import { initAppConfigStore } from '/@/logics/initAppConfig.js'
-// import { useLockPage } from '/@/hooks/web/useLockPage'
+import { useLockPage } from '/@/hooks/web/useLockPage'
 import { useTitle } from '/@/hooks/web/useTitle'
 
 export default defineComponent({
@@ -39,11 +40,14 @@ export default defineComponent({
     console.log('init!!!')
     initAppConfigStore()
     useTitle()
+    const { getAntdLocale } = useLoc()
     const bol = ref(true)
     const getLocale = useLocale(bol.value)
+    const lockEvent = useLockPage()
     console.log(getLocale)
     const locale = ref(getLocale.locale)
     return {
+      getAntdLocale,
       bol,
       getLocale,
       locale

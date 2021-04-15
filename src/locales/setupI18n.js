@@ -9,13 +9,14 @@ export let i18n;
 
 async function createI18nOptions() {
   const locale = store.getters['locale/getLocale'];
-  console.log(9999999, locale);
+  console.log(locale);
   const defaultLocal = await import(`./lang/${locale}.js`);
   console.log(defaultLocal);
   const message = defaultLocal.default?.message ?? {};
 
   return {
     legacy: false,
+
     locale,
     fallbackLocale: fallback,
     messages: {
@@ -32,5 +33,6 @@ async function createI18nOptions() {
 export async function setupI18n(app) {
   const options = await createI18nOptions();
   i18n = createI18n(options);
+  console.log(i18n);
   app.use(i18n);
 }
