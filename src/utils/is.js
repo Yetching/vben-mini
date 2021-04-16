@@ -22,3 +22,7 @@ export function isNullOrUnDef(val) {
 export function isObject(val) {
   return val !== null && is(val, 'Object');
 }
+
+export function isFunction(val) {
+  return typeof val === 'function';
+}

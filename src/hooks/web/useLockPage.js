@@ -1,5 +1,5 @@
 import { computed, onUnmounted, unref, watchEffect } from 'vue';
-// import { useThrottle } from '/@/hooks/core/useThrottle'; //防抖
+import { useThrottle } from '/@/hooks/core/useThrottle'; //防抖
 
 import store from '/@/store';
 import { useRootSetting } from '../setting/useRootSetting';
