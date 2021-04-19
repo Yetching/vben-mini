@@ -1,11 +1,19 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import routes from './routes';
+import { basicRoutes, loginRoutes } from './routes';
+
+import { REDIRECT_NAME } from './constant';
+
+const WHITE_NAME_LIST = [loginRoutes.name, REDIRECT_NAME];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
+  history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH),
+  routes: basicRoutes,
+  strict: true,
+  scrollBehavior: () => ({ left: 0, top: 0 }),
 });
+
+console.log(router.getRoutes());
 
 export function resetRouter() {
   router.getRoutes().forEach((route) => {
@@ -14,6 +22,10 @@ export function resetRouter() {
       router.hasRoute(name) && router.removeRoute(name);
     }
   });
+}
+
+export function setupRouter(app) {
+  app.use(router);
 }
 
 export default router;

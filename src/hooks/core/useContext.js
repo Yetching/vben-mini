@@ -6,7 +6,7 @@ import {
   // defineComponent,
 } from 'vue';
 
-const createContext = function (context, key, options) {
+export function createContext(context, key = Symbol(), options = {}) {
   const { readonly = true, createProvider = false, native = false } = options;
   const state = reactive(context);
   const providerData = readonly ? defineReadonly(state) : state;
@@ -15,8 +15,8 @@ const createContext = function (context, key, options) {
   return {
     state,
   };
-};
+}
 
-const useContext = function () {};
-
-export { createContext, useContext };
+export function useContext(key = Symbol(), defaultValue) {
+  return inject(key, defaultValue || {});
+}

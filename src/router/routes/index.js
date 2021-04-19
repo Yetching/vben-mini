@@ -1,6 +1,6 @@
 import { t } from '/@/hooks/web/useI18n';
 
-const routes = [
+export const basicRoutes = [
   {
     path: '/',
     name: 'home',
@@ -11,4 +11,11 @@ const routes = [
   },
 ];
 
-export default routes;
+export const loginRoutes = {
+  path: '/login',
+  name: 'Login',
+  component: () => import('/@/views/sys/login/Login.vue'),
+  meta: {
+    title: t('routes.basic.login'),
+  },
+};

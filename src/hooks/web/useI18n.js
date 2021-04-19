@@ -1,7 +1,5 @@
 import { i18n } from '/@/locales/setupI18n';
 
-console.log(i18n);
-
 function getKey(namespace, key) {
   if (!namespace) {
     return key;

@@ -12,17 +12,24 @@
   />
 </template>
 
-<script lang="ts">
+<script>
 import { computed, defineComponent } from "vue";
 import { Pagination, Button } from "ant-design-vue";
 import { useStore, mapMutations } from "vuex";
 
 export default defineComponent({
-  setup() {
+  setup () {
+    function curry (array) {
+      return array.reduce((newArray, children) => {
+        console.log(newArray, children)
+        return newArray.concat(children)
+      }, [])
+    }
+    console.log(curry([1, 2, 3, [4, 5]]))
     const store = useStore();
     console.log(store);
     const loadingState = store.state.app.pageLoadingState; //要跟随变化必须使用computed计算属性
-    function changeState() {
+    function changeState () {
       store.commit("app/commitPageLoadingState", true);
     }
     const computedState = computed(() => store.state.app.pageLoadingState);
@@ -38,7 +45,7 @@ export default defineComponent({
     ...mapMutations({
       commitPage: "app/commitPageLoadingState",
     }),
-    commit() {
+    commit () {
       this.commitPage(false);
     },
   },

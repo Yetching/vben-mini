@@ -1,7 +1,7 @@
 import { Modal, message as Message, notification } from 'ant-design-vue';
 import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
 
-import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
+// import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
 import { useI18n } from './useI18n';
 
 function getIcon(iconType) {
@@ -22,7 +22,7 @@ function renderContent({content}) {
 
 function createConfirm(options) {
   const iconType = options.iconType || 'warning'
-  Reflect.deleteProperty(options, 'iconType')
+  Reflect.deleteProperty(options, 'iconType')  //删除iconType属性
   const opt ={
     centered: true,
     icon: getIcon(iconType),
@@ -39,10 +39,44 @@ const getBaseOptions = () => {
   }
 }
 
-function
+function createModalOptions(options, icon) {
+  return {
+    ...getBaseOptions(),
+    ...options,
+    content: renderContent(options),
+    icon: getIcon(icon)
+  }
+}
+
+function createSuccessModal(options) {
+  return Modal.success(createModalOptions(options, 'success'))
+}
+
+function createErrorModal(options) {
+  return Modal.error(createModalOptions(options, 'close'))
+}
+
+function createInfoModal(options) {
+  return Modal.info(createModalOptions(options, 'info'))
+}
+
+function createWarningModal(options) {
+  return Modal.warning(createModalOptions(options, 'warning'))
+}
+
+notification.config({
+  placement: 'topRight',
+  duration: 3
+})
 
 export function useMessage() {
   return {
-    createMessage: '777'
+    createMessage: Message,
+    notification: notification,
+    createConfirm: createConfirm,
+    createSuccessModal,
+    createErrorModal,
+    createInfoModal,
+    createWarningModal
   }
 }

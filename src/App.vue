@@ -9,7 +9,16 @@
       value="zh-cn"
     >中文</a-radio-button>
   </a-radio-group>
-  <ConfigProvider :locale="getLocale">
+  <a-button
+    type="primary"
+    block
+    class="mt-2"
+    @click="handleLock"
+  >{{t('layout.header.lockScreenBtn')}}</a-button>
+  <ConfigProvider
+    :locale="getAntdLocale"
+    v-bind="lockEvent"
+  >
     <AppProvider>
       <RouterView />
     </AppProvider>
@@ -18,7 +27,7 @@
 
 <script >
 import { defineComponent, ref } from "vue";
-import { ConfigProvider, Radio } from 'ant-design-vue'  //按需引入
+import { ConfigProvider, Radio, Button } from 'ant-design-vue'  //按需引入
 import HelloWorld from "./components/HelloWorld.vue";
 import { useLocale } from '/@/hooks/web/useLocale'
 import { useLocale as useLoc } from '/@/locales/useLocale'
@@ -26,6 +35,8 @@ import AppProvider from './components/Application/src/AppProvider.vue'
 import { initAppConfigStore } from '/@/logics/initAppConfig.js'
 import { useLockPage } from '/@/hooks/web/useLockPage'
 import { useTitle } from '/@/hooks/web/useTitle'
+import { useI18n } from '/@/hooks/web/useI18n'
+import store from '/@/store'
 
 export default defineComponent({
   name: "App",
@@ -34,23 +45,34 @@ export default defineComponent({
     ConfigProvider,
     AppProvider,
     [Radio.Group.name]: Radio.Group,
-    [Radio.Button.name]: Radio.Button
+    [Radio.Button.name]: Radio.Button,
+    [Button.name]: Button
   },
   setup () {
     console.log('init!!!')
     initAppConfigStore()
     useTitle()
+    const { t } = useI18n()
     const { getAntdLocale } = useLoc()
     const bol = ref(true)
     const getLocale = useLocale(bol.value)
     const lockEvent = useLockPage()
-    console.log(getLocale)
+    console.log(getAntdLocale)
     const locale = ref(getLocale.locale)
+    async function handleLock () {
+      store.commit('lock/commitLockInfoState', {
+        isLock: true,
+        pwd: undefined
+      })
+    }
     return {
       getAntdLocale,
       bol,
       getLocale,
-      locale
+      locale,
+      lockEvent,
+      t,
+      handleLock
     }
   }
 });

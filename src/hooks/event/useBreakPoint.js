@@ -1,24 +1,24 @@
 import { ref, computed, unref } from 'vue';
-// import { useEventListener } from '/@/hooks/event/useEventListener';
+import { useEventListener } from '/@/hooks/event/useEventListener';
 import { screenEnum, sizeEnum, screenMap } from '/@/enums/breakPointEnum.js';
 
 let globalScreenRef;
 let globalWidthRef;
 let globalRealWidthRef;
 
-const useBreakPoint = function () {
+export function useBreakPoint() {
   return {
     screenRef: computed(() => unref(globalScreenRef)),
     widthRef: globalWidthRef,
     screenEnum,
     realWidthRef: globalRealWidthRef,
   };
-};
+}
 
-const createBreakPointListen = function (fn) {
-  const screenRef = ref(sizeEnum.XL);
+export function createBreakPointListen(fn) {
+  const screenRef = ref(sizeEnum.XL); //size
   console.log(sizeEnum);
-  const realWidthRef = ref(window.innerWidth);
+  const realWidthRef = ref(window.innerWidth); //px
 
   function getWindowWidth() {
     const width = document.body.clientWidth;
@@ -44,6 +44,17 @@ const createBreakPointListen = function (fn) {
     realWidthRef.value = width;
   }
 
+  //跟随窗口变化的本质
+  //将两个回调绑定window的resize事件
+  useEventListener({
+    el: window,
+    name: 'resize',
+    listener: () => {
+      getWindowWidth();
+      resizeFn();
+    },
+  });
+
   getWindowWidth();
   globalScreenRef = computed(() => unref(screenRef));
   globalWidthRef = computed(() => screenMap.get(unref(screenRef)));
@@ -67,6 +78,4 @@ const createBreakPointListen = function (fn) {
     widthRef: globalWidthRef,
     realWidthRef: globalRealWidthRef,
   };
-};
-
-export { createBreakPointListen, useBreakPoint };
+}

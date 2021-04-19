@@ -1,27 +1,30 @@
 <script>
-import { defineComponent, ref, toRef, unref, computed } from "vue";
+import { defineComponent, ref, toRefs, unref, computed } from "vue";
 import designSetting from "/@/settings/designSetting.js";
 import { createBreakPointListen } from "/@/hooks/event/useBreakPoint";
 import { createAppProviderContext } from './useAppContext.js'
 
 // import { appStore } from '/@/store/modules/app.js'
 import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum.js'
-import { useStore } from 'vuex'
+import store from '/@/store'
 
 export default defineComponent({
   name: "AppProvider",
   inheritAttrs: false,
-  // props: {
-  //   prefixCls: designSetting.prefixCls
-  // },
+  props: {
+    prefixCls: {
+      type: String,
+      default: 'vben',
+    }
+  },
   setup (props, { slots }) {
-    const store = useStore()
     const isMobile = ref(false);
     const isSetState = ref(false);
-    console.log("appProvider", slots);
-    console.log(typeof designSetting);
+    console.log("appProvider", store.state.app);
+    console.log(typeof designSetting.prefixCls);
     createBreakPointListen(({ screenMap, sizeEnum, width }) => {
       const lgWidth = screenMap.get(sizeEnum.LG)
+      console.log(lgWidth)
       if (lgWidth) {
         isMobile.value = width.value - 1 < lgWidth
       }
@@ -29,9 +32,8 @@ export default defineComponent({
       handleRestoreState()
     })
 
-    const prefixCls = ref(designSetting.prefixCls)
-    // createAppProviderContext({ prefixCls, isMobile })
-
+    const prefixCls = toRefs(props)
+    createAppProviderContext({ prefixCls, isMobile })
     function handleRestoreState () {
       if (unref(isMobile)) {
         if (!unref(isSetState)) {
@@ -43,31 +45,32 @@ export default defineComponent({
               collapsed: menuCollapsed,
               split: menuSplit
             }
-          } = computed(() => {
-            store.state.app.projectConfigState
-          })
-          store.commit('app/commitProjectConfig', {
+          } = store.getters['app/getProjectConfig']
+          console.log(menuType, menuMode, menuCollapsed, menuSplit)
+          store.commit('app/commitProjectConfigState', {
             menuSetting: {
               type: MenuTypeEnum.SIDEBAR,
               mode: MenuModeEnum.INLINE,
               split: false
             }
           })
-          // appStore.commitBeforeMiniState({ menuMode, menuCollapsed, menuType, menuSplit })
+          store.commit('app/commitBeforeMiniState', { menuMode, menuCollapsed, menuType, menuSplit })
         }
       } else {
-        // if (unref(isMobile)) {
-        //   isSetState.value = false
-        //   const { menuMode, menuCollapsed, menuType, menuSplit } = appStore.getBeforeMiniState
-        //   appStore.commitProjectConfigState({
-        //     menuSetting: {
-        //       type: menuType,
-        //       mode: menuMode,
-        //       collapsed: menuCollapsed,
-        //       split: menuSplit
-        //     }
-        //   })
-        // }
+
+        //不知道下面这段判断的作用，永远不会执行
+        if (unref(isSetState)) {
+          isSetState.value = false
+          const { menuMode, menuCollapsed, menuType, menuSplit } = store.getters['app/getBeforeMiniState']
+          store.commit('app/commitProjectConfigState', {
+            menuSetting: {
+              type: menuType,
+              mode: menuMode,
+              collapsed: menuCollapsed,
+              split: menuSplit
+            }
+          })
+        }
       }
     }
     console.log(slots.default)

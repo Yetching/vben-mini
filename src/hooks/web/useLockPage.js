@@ -14,11 +14,11 @@ export function useLockPage() {
 
   function resetCalcLockTimeout() {
     // not login
-    if (!userStore.getTokenState) {
+    if (!store.getters['user/getTokenState']) {
       clear();
       return;
     }
-    const lockTime = appStore.getProjectConfig.lockTime;
+    const lockTime = store.getters['app/getProjectConfig'].lockTime;
     if (!lockTime || lockTime < 1) {
       clear();
       return;
@@ -31,14 +31,14 @@ export function useLockPage() {
   }
 
   function lockPage() {
-    lockStore.commitLockInfoState({
+    store.commit('lock/commitLockInfoState', {
       isLock: true,
       pwd: undefined,
     });
   }
 
   watchEffect((onClean) => {
-    if (userStore.getTokenState) {
+    if (store.getters['user/getTokenState']) {
       resetCalcLockTimeout();
     } else {
       clear();

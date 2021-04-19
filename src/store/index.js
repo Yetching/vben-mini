@@ -2,6 +2,7 @@ import { createStore, createLogger } from 'vuex';
 import app from './modules/app.js';
 import locale from './modules/locale';
 import user from './modules/user';
+import lock from './modules/lock';
 
 const debug = process.env.NODE_ENV != 'production';
 
@@ -10,6 +11,7 @@ const store = createStore({
     app,
     locale,
     user,
+    lock,
   },
 
   strict: debug,
