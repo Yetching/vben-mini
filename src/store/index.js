@@ -3,6 +3,7 @@ import app from './modules/app.js';
 import locale from './modules/locale';
 import user from './modules/user';
 import lock from './modules/lock';
+import permission from './modules/permission';
 
 const debug = process.env.NODE_ENV != 'production';
 
@@ -12,6 +13,7 @@ const store = createStore({
     locale,
     user,
     lock,
+    permission,
   },
 
   strict: debug,

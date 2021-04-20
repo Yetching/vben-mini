@@ -1,12 +1,12 @@
 <template>
-  exception
+  <div>error-log</div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'ErrorPage',
+
   setup () { },
 });
 </script>

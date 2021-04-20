@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import { basicRoutes, loginRoutes } from './routes';
+import { basicRoutes, loginRoute } from './routes';
 
 import { REDIRECT_NAME } from './constant';
 
-const WHITE_NAME_LIST = [loginRoutes.name, REDIRECT_NAME];
+const WHITE_NAME_LIST = [loginRoute.name, REDIRECT_NAME];
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH),
