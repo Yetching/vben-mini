@@ -18,7 +18,7 @@ import projectSetting from '/@/settings/projectSetting';
 
 import { PermissionModeEnum } from '/@/enums/appEnum';
 
-import filter from '/@/utils/helper/treeHelper';
+import { filter } from '/@/utils/helper/treeHelper';
 
 import { getMenuListById } from '/@/api/sys/menu';
 import { getPermCodeByUserId } from '/@/api/sys/user';

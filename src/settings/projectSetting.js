@@ -124,7 +124,7 @@ const setting = {
     enable: true,
 
     // Route basic switching animation
-    basicTransition: RouterTransitionEnum.FADE_SIDE,
+    basicTransition: RouterTransitionEnum.FADE_SLIDE,
 
     // Whether to open page switching loading
     // Only open when enable=true
