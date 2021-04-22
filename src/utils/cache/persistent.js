@@ -35,8 +35,10 @@ export class Persistent {
   }
 
   static setLocal(key, value, immediate = false) {
+    console.log(localMemory);
+    console.log(immediate);
     localMemory.set(key, toRaw(value));
-    immediate && ls.set(APP_SESSION_CACHE_KEY, localMemory.getCache);
+    immediate && ls.set(APP_LOCAL_CACHE_KEY, localMemory.getCache);
     console.log('localStorage设置完成');
   }
 

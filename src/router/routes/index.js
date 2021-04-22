@@ -1,7 +1,7 @@
 import { t } from '/@/hooks/web/useI18n';
 import { PageEnum } from '/@/enums/pageEnum';
 
-import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from './basic';
+import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE, ERROR_LOG_ROUTE } from './basic';
 
 import { mainOutRoutes } from './mainOut';
 
@@ -44,4 +44,5 @@ export const basicRoutes = [
   rootRoute,
   ...mainOutRoutes,
   REDIRECT_ROUTE,
+  ERROR_LOG_ROUTE,
 ];

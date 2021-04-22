@@ -1,9 +1,7 @@
 <template>
-  <div
-    :class="[prefixCls,getLayoutContentMode]"
-    v-loading="getOpenPageLoading"
-  >
+  <div :class="[prefixCls,getLayoutContentMode]">
     LayoutContent
+    <RouterView></RouterView>
     <!-- <PageLayout /> -->
   </div>
 </template>
@@ -13,27 +11,28 @@ import { defineComponent } from "vue";
 
 // import PageLayout from '/@/layouts/page/index.vue'
 
-import { useDesign } from '/@/hooks/web/useDesign'
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
-import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
-import { useContentViewHeight } from './useContentViewHeight'
+import { useDesign } from "/@/hooks/web/useDesign";
+import { useRootSetting } from "/@/hooks/setting/useRootSetting";
+import { useTransitionSetting } from "/@/hooks/setting/useTransitionSetting";
+import { useContentViewHeight } from "./useContentViewHeight";
 
 export default defineComponent({
-  name: 'LayoutContent',
+  name: "LayoutContent",
   // components: { PageLayout },
-  setup () {
-    const { prefixCls } = useDesign('layout-content')
-    const { getOpenPageLoading } = useTransitionSetting()
-    const { getLayoutContentMode, getPageLoading } = useRootSetting()
+  setup() {
+    const { prefixCls } = useDesign("layout-content");
+    console.log(prefixCls);
+    const { getOpenPageLoading } = useTransitionSetting();
+    const { getLayoutContentMode, getPageLoading } = useRootSetting();
 
-    useContentViewHeight()
+    useContentViewHeight();
 
     return {
       prefixCls,
       getOpenPageLoading,
       getLayoutContentMode,
-      getPageLoading
-    }
+      getPageLoading,
+    };
   },
 });
 </script>

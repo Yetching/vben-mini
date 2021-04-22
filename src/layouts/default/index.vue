@@ -1,7 +1,7 @@
 <template>
-  <Layout :class="layoutClass">
-    <LayoutSideBar v-if="getShowSideBar || getIsMobile" />
-    <Layout :class="`${prefixCls}-main`">
+  <Layout>
+    <LayoutSideBar v-if="false" />
+    <Layout>
       <LayoutMultipleHeader />
       <LayoutContent />
     </Layout>
@@ -10,21 +10,21 @@
 
 <script>
 import { defineComponent } from "vue";
-import { Layout } from 'ant-design-vue'
+import { Layout } from "ant-design-vue";
 
-import LayoutMultipleHeader from './header/MultipleHeader.vue'
-import LayoutSideBar from './sider/index.vue'
-import LayoutContent from './content/index.vue'
+import LayoutMultipleHeader from "./header/MultipleHeader.vue";
+import LayoutSideBar from "./sider/index.vue";
+import LayoutContent from "./content/index.vue";
 
 export default defineComponent({
-  name: 'DefaultLayout',
+  name: "DefaultLayout",
   components: {
     LayoutMultipleHeader,
     LayoutContent,
     LayoutSideBar,
-    Layout
+    Layout,
   },
-  setup () { },
+  setup() {},
 });
 </script>
 

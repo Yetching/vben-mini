@@ -23,9 +23,9 @@ const setting = {
   //设置按钮的位置
   settingButtonPosition: SettingButtonPositionEnum.AUTO,
   //权限访问模式
-  permissonMode: PermissionModeEnum.ROLE,
+  permissionMode: PermissionModeEnum.ROLE,
   //权限访问缓存模式
-  permissonCacheType: CacheTypeEnum.LOCAL, //1： local  0： session
+  permissionCacheType: CacheTypeEnum.LOCAL, //1： local  0： session
   //主题颜色
   themeColor: primaryColor,
   //主题模式 黑暗主题

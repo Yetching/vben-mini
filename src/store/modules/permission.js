@@ -75,11 +75,10 @@ const actions = {
     const { t } = useI18n();
 
     let routes = [];
-    const roleList = toRaw(store.getters['user/getRoleListState']);
+    // const roleList = toRaw(store.getters['user/getRoleListState']);
     const { permissionMode = projectSetting.permissionMode } = store.getters[
       'app/getProjectConfig'
     ];
-
     //角色 访问模式
     if (permissionMode === PermissionModeEnum.ROLE) {
       const routeFilter = (route) => {
@@ -93,37 +92,37 @@ const actions = {
       //多级路由变换为二级路由
       routes = flatMultiLevelRoutes(routes);
       //后台动态权限
-    } else if (permissionMode === PermissionModeEnum.BACK) {
-      const { createMessage } = useMessage();
+    } //else if (permissionMode === PermissionModeEnum.BACK) {
+    //   const { createMessage } = useMessage();
 
-      createMessage.loading({
-        content: t('sys.app.menuLoading'),
-        duration: 1,
-      });
-      //根据后台路由菜单逻辑修改
-      const paramId = id || store.getters['user/getUserInfoState']?.userId;
+    //   createMessage.loading({
+    //     content: t('sys.app.menuLoading'),
+    //     duration: 1,
+    //   });
+    //   //根据后台路由菜单逻辑修改
+    //   const paramId = id || store.getters['user/getUserInfoState']?.userId;
 
-      //模拟请求后台获取访问，该函数可在实际中用于正确的时机使用一次
-      try {
-        dispatch('changePermissionCode', '1');
-      } catch (e) {}
+    //   //模拟请求后台获取访问，该函数可在实际中用于正确的时机使用一次
+    //   try {
+    //     dispatch('changePermissionCode', '1');
+    //   } catch (e) {}
 
-      if (!paramId) {
-        throw new Error('paramId is undefined!!!');
-      }
+    //   if (!paramId) {
+    //     throw new Error('paramId is undefined!!!');
+    //   }
 
-      let routeList = await getMenuListById({ id: paramId });
+    //   let routeList = await getMenuListById({ id: paramId });
 
-      //动态引入路由组件
-      routeList = transformObjToRoute(routeList);
+    //   //动态引入路由组件
+    //   routeList = transformObjToRoute(routeList);
 
-      //后台路由转化菜单结构
-      const backMenuList = transformRouteToMenu(routeList);
-      commit('setBackMenuList', backMenuList);
+    //   //后台路由转化菜单结构
+    //   const backMenuList = transformRouteToMenu(routeList);
+    //   commit('setBackMenuList', backMenuList);
 
-      routeList = flatMultiLevelRoutes(routeList);
-      routes = [PAGE_NOT_FOUND_ROUTE, ...routeList];
-    }
+    //   routeList = flatMultiLevelRoutes(routeList);
+    //   routes = [PAGE_NOT_FOUND_ROUTE, ...routeList];
+    // }
     routes.push(ERROR_LOG_ROUTE);
     return routes;
   },

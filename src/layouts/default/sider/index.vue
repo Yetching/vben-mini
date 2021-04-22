@@ -6,8 +6,8 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'SiderWrapper',
-  setup () { },
+  name: "SiderWrapper",
+  setup() {},
 });
 </script>
 
