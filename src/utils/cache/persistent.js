@@ -11,7 +11,7 @@ import {
 } from '/@/enums/cacheEnum.js';
 
 import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting.js';
-import { toRaw } from 'vue';
+import { reactive, ref, toRaw } from 'vue';
 
 //toRaw返回reactive或readonly代理的原始对象
 //可用于临时读取而不会引起代理访问/跟踪开销，写入时不会触发更改
@@ -24,6 +24,7 @@ const sessionMemory = new Memory(DEFAULT_CACHE_TIME);
 
 function initPersistentMemory() {
   const localCache = ls.get(APP_LOCAL_CACHE_KEY);
+  console.log(localCache);
   const sessionCache = ss.get(APP_SESSION_CACHE_KEY);
   localCache && localMemory.resetCache(localCache);
   sessionCache && sessionMemory.resetCache(sessionCache);
@@ -31,15 +32,14 @@ function initPersistentMemory() {
 
 export class Persistent {
   static getLocal(key) {
+    console.log(localMemory);
     return localMemory.get(key)?.value;
   }
 
   static setLocal(key, value, immediate = false) {
-    console.log(localMemory);
-    console.log(immediate);
     localMemory.set(key, toRaw(value));
+    console.log(localMemory.getCache);
     immediate && ls.set(APP_LOCAL_CACHE_KEY, localMemory.getCache);
-    console.log('localStorage设置完成');
   }
 
   static removeLocal(key) {
@@ -98,3 +98,58 @@ function storageChange(e) {
 window.addEventListener('storage', storageChange);
 
 initPersistentMemory();
+
+//test
+
+const menuList = [
+  {
+    children: [
+      {
+        name: 'vue',
+        code: '/',
+      },
+      {
+        name: 'react',
+        code: '/home',
+      },
+      {
+        name: 'angular',
+        code: '/product',
+      },
+    ],
+  },
+  {
+    children: [
+      {
+        name: 'li',
+        code: '/',
+      },
+      {
+        name: 'you',
+        code: '/home',
+      },
+      {
+        name: 'sa',
+        code: '/product',
+      },
+      {
+        name: 'van',
+        code: '/product',
+      },
+    ],
+  },
+];
+
+//test
+function getValue(key) {
+  let valueList = [];
+  menuList.forEach((item) => {
+    let valueItem = item.children.filter((ele) => {
+      return ele.code === key;
+    });
+    valueList = [...valueList, ...valueItem];
+  });
+  return valueList;
+}
+
+console.log(getValue('/product'));

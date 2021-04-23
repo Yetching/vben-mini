@@ -104,6 +104,7 @@ const setting = {
 
   // Multi-label
   multiTabsSetting: {
+    cache: false,
     // Turn on
     show: true,
     // Is it possible to drag and drop sorting tabs

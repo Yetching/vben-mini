@@ -19,20 +19,20 @@ export const createStorage = ({
   const encryption = new AesEncryption({ key, iv });
 
   const WebStorage = class WebStorage {
-    #storage;
-    #prefixKey;
-    #encryption;
-    #hasEncrypt;
+    storage;
+    prefixKey;
+    encryption;
+    hasEncrypt;
 
     constructor() {
-      this.#storage = storage;
-      this.#prefixKey = prefixKey;
-      this.#encryption = encryption;
-      this.#hasEncrypt = hasEncrypt;
+      this.storage = storage;
+      this.prefixKey = prefixKey;
+      this.encryption = encryption;
+      this.hasEncrypt = hasEncrypt;
     }
 
-    #getKey(key) {
-      return `${this.#prefixKey}${key}`.toUpperCase();
+    getKey(key) {
+      return `${this.prefixKey}${key}`.toUpperCase();
     }
 
     set(key, value, expire = timeout) {
@@ -43,19 +43,20 @@ export const createStorage = ({
           ? new Date().getTime() + expire * 1000
           : null,
       });
-      const stringifyValue = this.#hasEncrypt
-        ? this.#encryption.encryptByAES(stringData)
+      const stringifyValue = this.hasEncrypt
+        ? this.encryption.encryptByAES(stringData)
         : stringData;
-      this.#storage.setItem(this.#getKey(key), stringifyValue);
+      this.storage.setItem(this.getKey(key), stringifyValue);
+      console.log(`localStorage:${this.getKey(key)}字段设置完成`);
     }
 
     get(key, def) {
-      const val = this.#storage.getItem(this.#getKey(key));
+      const val = this.storage.getItem(this.getKey(key));
       if (!val) return def;
 
       try {
-        const decVal = this.#hasEncrypt
-          ? this.#encryption.decryptByAES(val)
+        const decVal = this.hasEncrypt
+          ? this.encryption.decryptByAES(val)
           : val;
         const data = JSON.parse(decVal);
         const { value, expire } = data;
@@ -69,11 +70,11 @@ export const createStorage = ({
     }
 
     remove(key) {
-      this.#storage.removeItem(this.#getKey(key));
+      this.storage.removeItem(this.getKey(key));
     }
 
     clear() {
-      this.#storage.clear();
+      this.storage.clear();
     }
   };
 

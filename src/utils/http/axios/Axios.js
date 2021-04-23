@@ -10,44 +10,44 @@ import { ContentTypeEnum, RequestEnum } from '/@/enums/httpEnum';
 // export * from './axiosTransform';
 
 export class VAxios {
-  #axiosInstance;
-  #options;
+  axiosInstance;
+  options;
 
   constructor(options) {
-    this.#options = options;
-    this.#axiosInstance = axios.create(options);
-    this.#setupInterceptors();
+    this.options = options;
+    this.axiosInstance = axios.create(options);
+    this.setupInterceptors();
   }
 
-  #createAxios(config) {
-    this.#axiosInstance = axios.create(config);
+  createAxios(config) {
+    this.axiosInstance = axios.create(config);
   }
 
-  #getTransform() {
-    const { transform } = this.#options;
+  getTransform() {
+    const { transform } = this.options;
     return transform;
   }
 
   getAxios() {
-    return this.#axiosInstance;
+    return this.axiosInstance;
   }
 
   configAxios(config) {
-    if (!this.#axiosInstance) {
+    if (!this.axiosInstance) {
       return;
     }
-    this.#createAxios(config);
+    this.createAxios(config);
   }
 
   setHeader(headers) {
-    if (!this.#axiosInstance) {
+    if (!this.axiosInstance) {
       return;
     }
-    Object.assign(this.#axiosInstance.defaults.headers, headers);
+    Object.assign(this.axiosInstance.defaults.headers, headers);
   }
 
-  #setupInterceptors() {
-    const transform = this.#getTransform();
+  setupInterceptors() {
+    const transform = this.getTransform();
     if (!transform) {
       return;
     }
@@ -59,14 +59,14 @@ export class VAxios {
     } = transform;
     const axiosCanceler = new AxiosCanceler();
 
-    this.#axiosInstance.interceptors.request.use((config) => {
+    this.axiosInstance.interceptors.request.use((config) => {
       const {
         headers: { ignoreCancelToken },
       } = config;
       const ignoreCancel =
         ignoreCancelToken !== undefined
           ? ignoreCancelToken
-          : this.#options.requestOptions?.ignoreCancelToken;
+          : this.options.requestOptions?.ignoreCancelToken;
 
       !ignoreCancel && axiosCanceler.addPending(config);
       if (requestInterceptors && isFunction(requestInterceptors)) {
@@ -77,12 +77,12 @@ export class VAxios {
 
     requestInterceptorsCatch &&
       isFunction(requestInterceptorsCatch) &&
-      this.#axiosInstance.interceptors.response.use(
+      this.axiosInstance.interceptors.response.use(
         undefined,
         requestInterceptorsCatch
       );
 
-    this.#axiosInstance.interceptors.response.use((res) => {
+    this.axiosInstance.interceptors.response.use((res) => {
       res && axiosCanceler.removePending(res.config);
       if (responseInterceptors && isFunction(responseInterceptors)) {
         res = responseInterceptors(res);
@@ -92,7 +92,7 @@ export class VAxios {
 
     responseInterceptorsCatch &&
       isFunction(responseInterceptorsCatch) &&
-      this.#axiosInstance.interceptors.response.use(
+      this.axiosInstance.interceptors.response.use(
         undefined,
         responseInterceptorsCatch
       );
@@ -116,7 +116,7 @@ export class VAxios {
     }
 
     formData.append(params.name || 'file', params.file, params.filename);
-    return this.#axiosInstance.request({
+    return this.axiosInstance.request({
       ...config,
       method: 'POST',
       data: formData,
@@ -128,7 +128,7 @@ export class VAxios {
   }
 
   supportFormDate(config) {
-    const headers = this.#options?.headers;
+    const headers = this.options?.headers;
     const contentType = headers?.['Content-type'] || headers?.['content-type'];
 
     if (
@@ -163,9 +163,9 @@ export class VAxios {
 
   request(config, options) {
     let conf = cloneDeep(config);
-    const transform = this.#getTransform();
+    const transform = this.getTransform();
 
-    const { requestOptions } = this.#options;
+    const { requestOptions } = this.options;
 
     const opt = Object.assign({}, requestOptions, options);
 
@@ -179,7 +179,7 @@ export class VAxios {
     conf = this.supportFormDate(conf);
 
     return new Promise((resolve, reject) => {
-      this.#axiosInstance
+      this.axiosInstance
         .request(conf)
         .then((res) => {
           if (transformRequestHook && isFunction(transformRequestHook)) {

@@ -1,27 +1,28 @@
 const NOT_ALIVE = 0;
 export class Memory {
-  #cache = {}; //#代表私有，es6提案
-  #alive = 0;
+  cache = {}; //代表私有，es6提案
+  alive = 0;
   constructor(alive = NOT_ALIVE) {
-    this.#alive = alive * 1000;
+    this.alive = alive * 1000;
   }
 
   get getCache() {
-    return this.#cache;
+    return this.cache;
   }
 
   setCache(cache) {
-    this.#cache = cache;
+    this.cache = cache;
   }
 
   get(key) {
-    return this.#cache[key];
+    return this.cache[key];
   }
 
   set(key, value, expires) {
     let item = this.get(key);
+    console.log(key);
     if (!expires || expires <= 0) {
-      expires = this.#alive;
+      expires = this.alive;
     }
     if (item) {
       if (item.timeoutId) {
@@ -31,14 +32,14 @@ export class Memory {
       item.value = value;
     } else {
       item = { value, alive: expires }; //这个alive哪里来的??
-      this.#cache[key] = item;
+      this.cache[key] = item;
     }
     if (!expires) {
       return value;
     }
 
     const now = new Date().getTime();
-    item.time = now + this.#alive;
+    item.time = now + this.alive;
     item.timeoutId = setTimeout(
       () => {
         this.remove(key);
@@ -51,7 +52,7 @@ export class Memory {
 
   remove(key) {
     const item = this.get(key);
-    Reflect.deleteProperty(this.#cache, key);
+    Reflect.deleteProperty(this.cache, key);
     if (item) {
       clearTimeout(item.timeoutId);
       return item.value;
@@ -64,19 +65,19 @@ export class Memory {
       const item = cache[k];
       if (item && item.time) {
         const now = new Date().getTime();
-        const expires = item.time;
-        if (expires > now) {
-          this.set(k, item.value, expires);
+        const expire = item.time;
+        if (expire > now) {
+          this.set(k, item.value, expire);
         }
       }
     });
   }
 
   clear() {
-    Object.keys(this.#cache).forEach((key) => {
-      const item = this.#cache[key];
+    Object.keys(this.cache).forEach((key) => {
+      const item = this.cache[key];
       item.timeoutId && clearTimeout(item.timeoutId);
     });
-    this.#cache = {};
+    this.cache = {};
   }
 }

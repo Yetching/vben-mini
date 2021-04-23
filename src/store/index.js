@@ -4,6 +4,7 @@ import locale from './modules/locale';
 import user from './modules/user';
 import lock from './modules/lock';
 import permission from './modules/permission';
+import multipleTab from './modules/multipleTab';
 
 const debug = process.env.NODE_ENV != 'production';
 
@@ -14,6 +15,7 @@ const store = createStore({
     user,
     lock,
     permission,
+    multipleTab,
   },
 
   strict: debug,

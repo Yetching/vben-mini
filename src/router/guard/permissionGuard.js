@@ -14,36 +14,33 @@ export function createPermissonGuard(router) {
     console.log(to);
     //404
     if (from.path === LOGIN_PATH && to.name === PAGE_NOT_FOUND_ROUTE.name) {
-      console.log(1111111);
       next(PageEnum.BASE_HOME);
       return;
     }
     // 白名单直接访问
     if (whitePathList.includes(to.path)) {
-      console.log(111111);
       next();
       return;
     }
     const token = store.getters['user/getTokenState'];
-
-    if (!token) {
-      if (to.meta.ignoreAuth) {
-        next();
-        return;
-      }
-      const redirectData = {
-        path: LOGIN_PATH,
-        replace: true,
-      };
-      if (to.path) {
-        redirectData.query = {
-          ...redirectData.query,
-          redirect: to.path,
-        };
-      }
-      next(redirectData);
-      return;
-    }
+    // if (!token) {
+    //   if (to.meta.ignoreAuth) {
+    //     next();
+    //     return;
+    //   }
+    //   const redirectData = {
+    //     path: LOGIN_PATH,
+    //     replace: true,
+    //   };
+    //   if (to.path) {
+    //     redirectData.query = {
+    //       ...redirectData.query,
+    //       redirect: to.path,
+    //     };
+    //   }
+    //   next(redirectData);
+    //   return;
+    // }
     if (store.getters['permission/getIsDynamicAddedRoute']) {
       next();
       return;

@@ -2,6 +2,7 @@ import '/@/design/index.less';
 
 import { createApp } from 'vue';
 import App from './App.vue';
+import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
 import router from '/@/router';
@@ -13,6 +14,7 @@ console.log(store.getters);
 
 (async () => {
   const app = createApp(App);
+  app.use(Antd);
   await setupI18n(app); //await先完成locales的解析与国际化配置
   app.use(router);
   setupRouterGuard();

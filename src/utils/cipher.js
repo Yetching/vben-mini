@@ -7,15 +7,15 @@ import UTF8 from 'crypto-js/enc-utf8';
 import Base64 from 'crypto-js/enc-base64';
 
 export class AesEncryption {
-  #key;
-  #iv;
+  key;
+  iv;
   constructor(opt = {}) {
     const { key, iv } = opt;
     if (key) {
-      this.#key = parse(key);
+      this.key = parse(key);
     }
     if (iv) {
-      this.#iv = parse(iv);
+      this.iv = parse(iv);
     }
   }
 
@@ -23,16 +23,16 @@ export class AesEncryption {
     return {
       mode: ECB,
       padding: pkcs7,
-      iv: this.#iv,
+      iv: this.iv,
     };
   }
 
   encryptByAES(cipherText) {
-    return encrypt(cipherText, this.#key, this.getOptions).toString();
+    return encrypt(cipherText, this.key, this.getOptions).toString();
   }
 
   decryptByAES(cipherText) {
-    return decrypt(cipherText, this.#key, thos.getOptions).toString();
+    return decrypt(cipherText, this.key, thos.getOptions).toString();
   }
 }
 
