@@ -29,7 +29,6 @@ const mutations = {
 
 const actions = {
   initLocale({ commit, state }) {
-    console.log('locale');
     commit('setLocaleInfo', {
       ...localeSetting,
       ...state.info,

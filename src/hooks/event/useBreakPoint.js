@@ -17,7 +17,6 @@ export function useBreakPoint() {
 
 export function createBreakPointListen(fn) {
   const screenRef = ref(sizeEnum.XL); //size
-  console.log(sizeEnum);
   const realWidthRef = ref(window.innerWidth); //px
 
   function getWindowWidth() {
@@ -40,7 +39,6 @@ export function createBreakPointListen(fn) {
     } else {
       screenRef.value = sizeEnum.XXL;
     }
-    console.log(screenRef);
     realWidthRef.value = width;
   }
 

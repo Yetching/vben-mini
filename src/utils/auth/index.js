@@ -17,6 +17,5 @@ export function getAuthCache(key) {
 
 export function setAuthCache(key, value) {
   const fn = isLocal ? Persistent.setLocal : Persistent.setSession;
-  console.log(key, value);
   return fn(key, value, true);
 }

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path';
 import {viteThemePlugin, mixLighten, mixDarken, tinycolor} from 'vite-plugin-theme'
 import {getThemeColors, generateColors} from './build/config/themeConfig.js'
@@ -10,6 +11,7 @@ function pathResolve(dir) {
 export default defineConfig({
   plugins: [
     vue(),
+    vueJsx(),
     viteThemePlugin({
       colorVariables: [...getThemeColors(), ...generateColors({mixDarken, mixLighten, tinycolor})]
     })

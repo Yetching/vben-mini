@@ -12,7 +12,6 @@ export function createContext(context, key = Symbol(), options = {}) {
   const state = reactive(context);
   const providerData = readonly ? defineReadonly(state) : state;
   !createProvider && provide(key, native ? context : providerData);
-  console.log(state);
   return {
     state,
   };

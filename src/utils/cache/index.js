@@ -16,8 +16,6 @@ const createOptions = (storage, options = {}) => {
 
 export const WebStorage = create(createOptions(sessionStorage));
 
-console.log(create());
-
 export const createStorage = (storage = sessionStorage, options = {}) => {
   return create(createOptions(storage, options));
 };
@@ -28,8 +26,6 @@ export const createSessionStorage = (options = {}) => {
     timeout: DEFAULT_CACHE_TIME,
   });
 };
-
-console.log(createSessionStorage());
 
 export const createLocalStorage = (options = {}) => {
   return createStorage(localStorage, {

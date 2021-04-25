@@ -9,9 +9,7 @@ const LOGIN_PATH = PageEnum.BASE_LOGIN;
 const whitePathList = [LOGIN_PATH];
 
 export function createPermissonGuard(router) {
-  console.log(router);
   router.beforeEach(async (to, from, next) => {
-    console.log(to);
     //404
     if (from.path === LOGIN_PATH && to.name === PAGE_NOT_FOUND_ROUTE.name) {
       next(PageEnum.BASE_HOME);

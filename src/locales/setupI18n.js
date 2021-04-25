@@ -9,9 +9,7 @@ export let i18n;
 
 async function createI18nOptions() {
   const locale = store.getters['locale/getLocale'];
-  console.log(locale);
   const defaultLocal = await import(`./lang/${locale}.js`);
-  console.log(defaultLocal);
   const message = defaultLocal.default?.message ?? {};
 
   return {

@@ -4,8 +4,7 @@ import antdLocale from 'ant-design-vue/es/locale/zh_CN';
 import momentLocale from 'moment/dist/locale/zh-cn';
 
 const modules = import.meta.globEager('./zh_CN/**/*.js');
-console.log(antdLocale);
-console.log(modules);
+
 export default {
   message: { ...genMessage(modules, 'zh_CN'), antdLocale },
   momentLocale,

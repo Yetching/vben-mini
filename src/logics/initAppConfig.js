@@ -18,7 +18,6 @@ import { changeTheme } from '/@/logics/theme';
 
 export function initAppConfigStore() {
   let projCfg = Persistent.getLocal(PROJ_CFG_KEY);
-  console.log(projCfg);
   projCfg = deepMerge(projectSetting, projCfg || {});
 
   try {
@@ -29,9 +28,7 @@ export function initAppConfigStore() {
       headerSetting: { bgColor: headerBgColor } = {},
       menuSetting: { bgColor } = {},
     } = projCfg;
-    console.log(themeColor);
     if (themeColor && themeColor == !primaryColor) {
-      console.log(8888888888);
       changeTheme(themeColor);
     }
     headerBgColor && updateHeaderBgColor(headerBgColor);

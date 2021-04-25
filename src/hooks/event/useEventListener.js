@@ -28,7 +28,6 @@ export function useEventListener({
     };
     const addEventListrner = (e) => {
       e.addEventListener(name, realHandler, options);
-      console.log(e);
     };
     const removeWatch = watch(
       element,

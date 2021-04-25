@@ -7,8 +7,6 @@ import { mainOutRoutes } from './mainOut';
 
 const modules = import.meta.globEager('./modules/**/*.js');
 
-console.log(modules);
-
 const routeModuleList = [];
 
 Object.keys(modules).forEach((key) => {
@@ -16,8 +14,6 @@ Object.keys(modules).forEach((key) => {
   const modList = Array.isArray(mod) ? [...mod] : [mod];
   routeModuleList.push(...modList);
 });
-
-console.log(routeModuleList);
 
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList];
 

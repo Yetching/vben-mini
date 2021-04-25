@@ -5,10 +5,7 @@
     v-if="getUseOpenBackTop"
     :target="getTarget"
   />
-  <SettingDrawer
-    v-if="getIsFixedSettingDrawer"
-    :class="prefixCls"
-  />
+  <SettingDrawer :class="prefixCls" />
 </template>
 
 <script>
@@ -42,6 +39,7 @@ export default defineComponent({
     } = useRootSetting();
 
     const { prefixCls } = useDesign("setting-drawer-fearure");
+
     const { getShowHeader } = useHeaderSetting();
 
     const getIsFixedSettingDrawer = computed(() => {

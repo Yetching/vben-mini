@@ -20,7 +20,6 @@ export class Memory {
 
   set(key, value, expires) {
     let item = this.get(key);
-    console.log(key);
     if (!expires || expires <= 0) {
       expires = this.alive;
     }

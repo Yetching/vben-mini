@@ -13,8 +13,6 @@ const router = createRouter({
   scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 
-console.log(router.getRoutes());
-
 export function resetRouter() {
   router.getRoutes().forEach((route) => {
     const { name } = route;

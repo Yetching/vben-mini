@@ -24,7 +24,6 @@ const sessionMemory = new Memory(DEFAULT_CACHE_TIME);
 
 function initPersistentMemory() {
   const localCache = ls.get(APP_LOCAL_CACHE_KEY);
-  console.log(localCache);
   const sessionCache = ss.get(APP_SESSION_CACHE_KEY);
   localCache && localMemory.resetCache(localCache);
   sessionCache && sessionMemory.resetCache(sessionCache);
@@ -32,13 +31,11 @@ function initPersistentMemory() {
 
 export class Persistent {
   static getLocal(key) {
-    console.log(localMemory);
     return localMemory.get(key)?.value;
   }
 
   static setLocal(key, value, immediate = false) {
     localMemory.set(key, toRaw(value));
-    console.log(localMemory.getCache);
     immediate && ls.set(APP_LOCAL_CACHE_KEY, localMemory.getCache);
   }
 
@@ -151,5 +148,3 @@ function getValue(key) {
   });
   return valueList;
 }
-
-console.log(getValue('/product'));
