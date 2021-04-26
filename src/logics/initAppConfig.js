@@ -13,12 +13,17 @@ import {
 } from '/@/logics/theme/updateBackground.js';
 import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
 import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
+import { updateDarkTheme } from '/@/logics/theme/dark';
 
 import { changeTheme } from '/@/logics/theme';
 
 export function initAppConfigStore() {
   let projCfg = Persistent.getLocal(PROJ_CFG_KEY);
   projCfg = deepMerge(projectSetting, projCfg || {});
+
+  const darkMode = store.getters['app/getDarkMode'];
+
+  alert(darkMode);
 
   try {
     const {
@@ -39,6 +44,9 @@ export function initAppConfigStore() {
     console.log(error);
   }
   store.commit('app/commitProjectConfigState', projCfg);
+
+  //黑暗模式
+  updateDarkTheme(darkMode);
   store.dispatch('locale/initLocale');
 
   setTimeout(() => {

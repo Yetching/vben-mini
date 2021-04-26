@@ -2,6 +2,8 @@ export default {
   prefixCls: 'vben',
 };
 
+export const darkMode = 'light';
+
 // app theme preset color
 export const APP_PRESET_COLOR_LIST = [
   '#0960bd',

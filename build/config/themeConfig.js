@@ -1,4 +1,5 @@
 import { generate } from '@ant-design/colors';
+// import { resolve } from 'path';
 
 export const primaryColor = '#0960bd';
 
@@ -22,7 +23,6 @@ export function getThemeColors(color, theme) {
     tm === 'dark' ? 'light' : 'dark'
   );
   //生成相反模式的颜色
-  console.log(modeColors);
 
   return [...colors, ...modeColors];
 }
@@ -34,15 +34,12 @@ export function generateColors({
   tinycolor,
 }) {
   const arr = new Array(19).fill(0);
-  console.log(arr);
   const lightens = arr.map((_t, i) => {
     return mixLighten(color, i / 5);
   });
-  console.log(lightens);
   const darkens = arr.map((_t, i) => {
     return mixDarken(color, i / 5);
   });
-  console.log(darkens);
   const alphaColors = arr.map((_t, i) => {
     return tinycolor(color)
       .setAlpha(i / 20)
@@ -87,6 +84,7 @@ export function generateModifyVars() {
   }
 
   return {
+    hack: `true;@import (reference) "/src/design/config.less"`,
     'primary-color': primary,
     ...primaryColorObj,
     'info-color': primary,

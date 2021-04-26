@@ -54,11 +54,12 @@ export default defineComponent({
   },
 });
 </script>
-//~似乎是让浏览器去计算 而不是编译css时做到的
-@prefix-cls: vben-setting-menu-type-picker;
 
 <style lang="less" scoped>
-.color-picker {
+//~似乎是让浏览器去计算 而不是编译css时做到的
+@prefix-cls: ~"@{namespace}-setting-menu-type-picker";
+
+.@{prefix-cls} {
   display: flex;
   width: 500px;
   height: @header-height;

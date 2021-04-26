@@ -49,6 +49,8 @@ const getGrayMode = computed(() => unref(getRootSetting).grayMode);
 
 const getLockTime = computed(() => unref(getRootSetting).lockTime);
 
+const getDarkMode = computed(() => unref(store.getters['app/getDarkMode']));
+
 const getLayoutContentMode = computed(() =>
   unref(getRootSetting).contentMode === ContentEnum.FULL
     ? ContentEnum.FULL
@@ -59,10 +61,15 @@ function setRootSetting(setting) {
   store.commit('app/commitProjectConfigState', setting);
 }
 
+function setDarkMode(mode) {
+  store.commit('app/setDarkMode', mode);
+}
+
 export function useRootSetting() {
   return {
     setRootSetting,
-
+    setDarkMode,
+    getDarkMode,
     getSettingButtonPosition,
     getFullContent,
     getColorWeak,

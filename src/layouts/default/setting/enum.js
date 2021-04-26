@@ -11,6 +11,10 @@ import { useI18n } from '/@/hooks/web/useI18n';
 
 const { t } = useI18n();
 
+export const HandlerEnum = {
+  CHANGE_LAYOUT: 0,
+};
+
 export const menuTypeList = [
   {
     title: t('layout.index.setting.menuTypeSidebar'),

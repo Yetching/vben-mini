@@ -1,12 +1,14 @@
-import { PROJ_CFG_KEY } from '/@/enums/cacheEnum.js';
+import { APP_DARK_MODE_KEY, PROJ_CFG_KEY } from '/@/enums/cacheEnum.js';
 import { Persistent } from '/@/utils/cache/persistent.js';
 import { deepMerge } from '/@/utils';
+import { darkMode } from '/@/settings/designSetting';
 
 const state = () => ({
   pageLoadingState: false,
   projectConfigState: {},
   lockMainScrollState: false,
   beforeMiniState: {},
+  darkMode: undefined,
 });
 
 const getters = {
@@ -21,6 +23,11 @@ const getters = {
   },
   getProjectConfig: (state) => {
     return state.projectConfigState;
+  },
+  getDarkMode: (state) => {
+    return (
+      state.darkMode || localStorage.getItem(APP_DARK_MODE_KEY) || darkMode
+    );
   },
 };
 
@@ -41,6 +48,10 @@ const mutations = {
     );
     Persistent.setLocal(PROJ_CFG_KEY, state.projectConfigState);
     console.log(state.projectConfigState);
+  },
+  setDarkMode(state, mode) {
+    state.darkMode = mode;
+    localStorage.setItem(APP_DARK_MODE_KEY, mode);
   },
 };
 

@@ -9,6 +9,7 @@ import router from '/@/router';
 import store from '/@/store/index.js';
 import { setupI18n } from '/@/locales/setupI18n';
 import { setupRouterGuard } from '/@/router/guard';
+import 'vite-plugin-svg-icons/register';
 
 console.log(store.getters);
 
