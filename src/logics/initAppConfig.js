@@ -23,8 +23,6 @@ export function initAppConfigStore() {
 
   const darkMode = store.getters['app/getDarkMode'];
 
-  alert(darkMode);
-
   try {
     const {
       colorWeak,

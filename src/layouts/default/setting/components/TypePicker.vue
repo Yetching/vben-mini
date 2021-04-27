@@ -61,7 +61,7 @@ export default defineComponent({
 
 .@{prefix-cls} {
   display: flex;
-  width: 500px;
+  width: 100%;
   height: @header-height;
   // position: fixed;
   background-color: aqua;

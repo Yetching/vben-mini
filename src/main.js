@@ -21,6 +21,5 @@ console.log(store.getters);
   setupRouterGuard();
   app.use(store); //这样才能在.vue文件中使用useState
   await router.isReady();
-
   app.mount('#app', true);
 })();

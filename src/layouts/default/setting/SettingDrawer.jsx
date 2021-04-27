@@ -9,12 +9,13 @@ import {useMenuSetting} from '/@/hooks/setting/useMenuSetting'
 
 import {AppDarkModeToggle} from '/@/components/Application'
 import { Divider } from 'ant-design-vue'
+import {BasicDrawer} from '/@/components/Drawer/index'
 
 import {useI18n} from '/@/hooks/web/useI18n'
 
 export default defineComponent({
   name: 'SettingDrawer',
-  setup() {
+  setup(props, {attrs}) {
     const {t} = useI18n()
     const {
       getIsHorizontal,
@@ -37,12 +38,15 @@ export default defineComponent({
     }
 
     return () =>
-    <>
-      <div>
-        <AppDarkModeToggle class="mx-auto"/>
-        <Divider>{() => t('layout.index.setting.navMode')}</Divider>
-        {renderSidebar()}
-      </div>
-    </>
+    <BasicDrawer
+     {...attrs}
+     title={t('layout.index.setting.drawerTitle')}
+     width={330}
+     >
+       <Divider>{()=> t('layout.index.setting.darkMode')}</Divider>
+      <AppDarkModeToggle class="mx-auto"/>
+      <Divider>{() => t('layout.index.setting.navMode')}</Divider>
+      {renderSidebar()}
+    </BasicDrawer>
   }
 })
