@@ -15,7 +15,14 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref, toRaw, unref } from "vue";
+import {
+  computed,
+  defineComponent,
+  getCurrentInstance,
+  ref,
+  toRaw,
+  unref,
+} from "vue";
 import { basicProps } from "./props";
 import { useI18n } from "/@/hooks/web/useI18n";
 import { deepMerge } from "/@/utils";
@@ -26,10 +33,14 @@ export default defineComponent({
   props: basicProps,
   emits: ["visible-change", "ok", "close", "register"],
   setup(props, { emit }) {
-    const visibleRef = ref(true);
+    const visibleRef = ref(false);
     const propsRef = ref(null);
 
+    const instance = getCurrentInstance();
+
     const { t } = useI18n();
+
+    instance && emit("register", setDrawerProps);
 
     const getMergeProps = computed(() => {
       return deepMerge(toRaw(props), unref(propsRef));
@@ -58,6 +69,14 @@ export default defineComponent({
         return;
       }
       visibleRef.value = false;
+    }
+
+    function setDrawerProps(props) {
+      propsRef.value = deepMerge(unref(propsRef) || {}, props);
+
+      if (Reflect.has(props, "visible")) {
+        visibleRef.value = !!props.visible;
+      }
     }
 
     return {

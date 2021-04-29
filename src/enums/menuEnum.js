@@ -19,7 +19,7 @@ const MenuModeEnum = {
   INLINE: 'inline',
 };
 
-const MenuSplitEnum = {
+const MenuSplitTypeEnum = {
   NONE: 'NONE',
   TOP: 'TOP',
   LEFT: 'LEFT',
@@ -39,7 +39,7 @@ const MixSidebarTriggerEnum = {
 export {
   MenuModeEnum,
   MenuTypeEnum,
-  MenuSplitEnum,
+  MenuSplitTypeEnum,
   TopMenuAlignEnum,
   MixSidebarTriggerEnum,
   TriggerEnum,

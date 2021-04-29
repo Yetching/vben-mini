@@ -5,6 +5,7 @@ import { ContentEnum } from '/@/enums/appEnum';
 
 const getRootSetting = computed(() => store.getters['app/getProjectConfig']);
 
+console.log(9999, getRootSetting.value === unref(getRootSetting));
 const getPageLoading = computed(() => store.getters['app/getPageLoading']);
 
 const getOpenKeepAlive = computed(() => unref(getRootSetting).openKeepAlive);
@@ -52,7 +53,7 @@ const getLockTime = computed(() => unref(getRootSetting).lockTime);
 const getDarkMode = computed(() => unref(store.getters['app/getDarkMode']));
 
 const getLayoutContentMode = computed(() =>
-  unref(getRootSetting).contentMode === ContentEnum.FULL
+  unref(getRootSetting).contentType === ContentEnum.FULL
     ? ContentEnum.FULL
     : ContentEnum.FIXED
 );

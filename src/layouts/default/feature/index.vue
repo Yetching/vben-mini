@@ -5,7 +5,10 @@
     v-if="getUseOpenBackTop"
     :target="getTarget"
   />
-  <SettingDrawer :class="prefixCls" />
+  <SettingDrawer
+    v-if="false"
+    :class="prefixCls"
+  />
 </template>
 
 <script>
