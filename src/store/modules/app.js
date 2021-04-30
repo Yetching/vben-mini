@@ -5,7 +5,7 @@ import { darkMode } from '/@/settings/designSetting';
 
 const state = () => ({
   pageLoadingState: false,
-  projectConfigState: {},
+  projectConfigState: Persistent.getLocal(PROJ_CFG_KEY),
   lockMainScrollState: false,
   beforeMiniState: {},
   darkMode: undefined,

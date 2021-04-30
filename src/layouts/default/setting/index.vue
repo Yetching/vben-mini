@@ -1,12 +1,15 @@
 <template>
   <div @click="openDrawer">
     SettingButton
-    <SettingDrawer @register="register" />
+    <SettingDrawer
+      ref="settingDrawer"
+      @register="register"
+    />
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import SettingDrawer from "./SettingDrawer";
 
 export default defineComponent({
@@ -14,6 +17,12 @@ export default defineComponent({
   components: { SettingDrawer },
   setup() {
     const drawerRef = ref(null);
+    const settingDrawer = ref(null);
+    console.log(settingDrawer.value);
+    onMounted(() => {
+      console.log(settingDrawer.value);
+    });
+
     function register(setDrawerProps, fisrt = true) {
       if (fisrt) {
       } else {

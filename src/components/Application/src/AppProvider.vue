@@ -14,7 +14,7 @@ export default defineComponent({
   props: {
     prefixCls: {
       type: String,
-      default: "vben",
+      default: "yetching",
     },
   },
   setup(props, { slots }) {

@@ -5,7 +5,9 @@
     :class="[prefixCls, theme, {'collapsed-show-title': getCollapsedShowTtile}]"
   >
     <img
-      src="../../../assets/logo.png"
+      width="32"
+      height="32"
+      src="../../../assets/images/logo.jpg"
       alt="logo"
     />
     <div
@@ -49,6 +51,7 @@ export default defineComponent({
     const go = useGo();
 
     function handleGoHome() {
+      console.log("gohome");
       go(PageEnum.BASE_HOME);
     }
 
@@ -63,4 +66,35 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+@prefix-cls: ~"@{namespace}-app-logo";
+
+.@{prefix-cls} {
+  display: flex;
+  align-items: center;
+  padding-left: 7px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.light {
+    border-bottom: 1px solid #eee;
+  }
+
+  &.collapsed-show-title {
+    padding-left: 20px;
+  }
+
+  &.light &-title {
+    color: @primary-color;
+  }
+
+  &.dark &-title {
+    color: @white;
+  }
+
+  &-title {
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.5s;
+  }
+}
 </style>

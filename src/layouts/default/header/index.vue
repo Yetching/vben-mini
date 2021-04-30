@@ -1,6 +1,6 @@
 <template>
   LayoutHeader
-  <Header>
+  <Header :class="getHeaderClass">
     <div :class="`${prefixCls}-left`">
       <AppLogo
         v-if="getShowHeaderLogo || getIsMobile"
@@ -10,18 +10,21 @@
       />
     </div>
     <div :class="`${prefixCls}-action`">
+      <AppSearch :class="`${prefixCls}-action-item`" />
       <SettingButton :class="`${prefixCls}-action-item`" />
     </div>
   </Header>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { computed, defineComponent, unref } from "vue";
 
 import { Layout } from "ant-design-vue";
-import { AppLogo } from "/@/components/Application";
+import { AppLogo, AppSearch } from "/@/components/Application";
 
 import { useDesign } from "/@/hooks/web/useDesign";
+import { useAppInject } from "/@/hooks/web/useAppInject";
+
 import { useHeaderSetting } from "/@/hooks/setting/useHeaderSetting";
 import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
 import { useRootSetting } from "/@/hooks/setting/useRootSetting";
@@ -37,6 +40,7 @@ export default defineComponent({
   components: {
     Header: Layout.Header,
     AppLogo,
+    AppSearch,
     SettingButton: createAsyncComponent(
       () => import("/@/layouts/default/setting/index.vue"),
       {
@@ -75,9 +79,39 @@ export default defineComponent({
       getShowHeaderLogo,
       getShowHeader,
     } = useHeaderSetting();
+
+    const { getIsMobile } = useAppInject();
+
+    const getHeaderClass = computed(() => {
+      const theme = unref(getHeaderTheme);
+      return [
+        prefixCls,
+        {
+          [`${prefixCls}--fixed`]: props.fixed,
+          [`${prefixCls}--mobile`]: unref(getIsMobile),
+          [`${prefixCls}--${theme}`]: theme,
+        },
+      ];
+    });
+
+    const getLogoWidth = computed(() => {
+      if (!unref(getIsMixMode) || unref(getIsMobile)) {
+        return {};
+      }
+      const width = unref(getMenuWidth) < 180 ? 180 : unref(getMenuWidth);
+      return { width: `${width}px` };
+    });
+    return {
+      prefixCls,
+      getLogoWidth,
+      getIsMobile,
+      getShowHeaderLogo,
+      getHeaderClass,
+    };
   },
 });
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+@import "./index.less";
 </style>

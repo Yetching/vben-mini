@@ -13,7 +13,6 @@ const mixSideHasChildren = ref(false);
 export function useMenuSetting() {
   const { getFullContent: fullContent } = useFullContent();
   const menuSetting = unref(store.getters['app/getProjectConfig']).menuSetting;
-  console.log(8888, menuSetting.type);
   const getShowSidebar = computed(() => {
     return (
       unref(getSplit) ||

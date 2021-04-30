@@ -1,5 +1,5 @@
 export default {
-  prefixCls: 'vben',
+  prefixCls: 'yetching',
 };
 
 export const darkMode = 'light';

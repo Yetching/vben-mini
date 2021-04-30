@@ -4,4 +4,5 @@ export default {
   cancelText: '取消',
   redo: '刷新',
   back: '返回',
+  searchText: '搜索',
 };

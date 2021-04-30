@@ -76,6 +76,7 @@ const actions = {
 
     let routes = [];
     // const roleList = toRaw(store.getters['user/getRoleListState']);
+    console.log(projectSetting);
     const { permissionMode = projectSetting.permissionMode } = store.getters[
       'app/getProjectConfig'
     ];

@@ -1,0 +1,49 @@
+@header-prefix-cls: ~'@{namespace}-layout-header';
+
+.@{header-prefix-cls} {
+  height: @header-height;
+  display: flex;
+  padding: 0;
+  margin-left: -1px;
+  line-height: @header-height;
+  color: @white;
+  background-color: @white;
+  align-items: center;
+  justify-content: space-between;
+
+  &-action {
+    display: flex;
+    min-width: 180px;
+    align-items: center;
+
+    &-item {
+      display: flex !important;
+      height: @header-height;
+      padding: 0 2px;
+      font-size: 1.2em;
+      cursor: pointer;
+      align-items: center;
+      color: #000;
+
+      .ant-badge {
+        height: @header-height;
+        line-height: @header-height;
+      }
+
+      .ant-badge-dot {
+        top: 10px;
+        right: 2px;
+      }
+    }
+  }
+
+  &--light {
+    background-color: @white !important;
+    border-bottom: 1px solid @header-light-bottom-border-color;
+    border-left: 1px solid @header-light-bottom-border-color;
+
+    .@{header-prefix-cls}-logo{
+
+    }
+  }
+}
