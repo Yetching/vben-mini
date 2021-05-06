@@ -20,6 +20,10 @@ import { computed, defineComponent } from "vue";
 
 import { useDesign } from "/@/hooks/web/useDesign";
 import { useRootSetting } from "/@/hooks/setting/useRootSetting";
+import {
+  updateHeaderBgColor,
+  updateSidebarBgColor,
+} from "/@/logics/theme/updateBackground";
 import { updateDarkTheme } from "/@/logics/theme/dark";
 import { SvgIcon } from "/@/components/Icon";
 
@@ -37,6 +41,8 @@ export default defineComponent({
         getDarkMode.value === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK;
       setDarkMode(darkMode);
       updateDarkTheme(darkMode);
+      updateHeaderBgColor();
+      updateSidebarBgColor();
     }
 
     return {

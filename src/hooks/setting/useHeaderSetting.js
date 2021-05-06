@@ -10,6 +10,10 @@ import { MenuModeEnum } from '/@/enums/menuEnum';
 export function useHeaderSetting() {
   const { getFullContent } = useFullContent();
 
+  // const headerSetting = computed(
+  //   () => store.getters['app/getProjectConfig'].headerSetting
+  // );
+
   const headerSetting = store.getters['app/getProjectConfig'].headerSetting;
 
   console.log(headerSetting);

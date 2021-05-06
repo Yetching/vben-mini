@@ -1,4 +1,6 @@
 import { generate } from '@ant-design/colors';
+
+import { getThemeVariables } from 'ant-design-vue/dist/theme';
 // import { resolve } from 'path';
 
 export const primaryColor = '#0960bd';
@@ -73,7 +75,7 @@ export function generateColors({
 /**
  * less global variable
  */
-export function generateModifyVars() {
+export function generateModifyVars(dark = false) {
   const palettes = generateAntColors(primaryColor, themeMode);
   const primary = palettes[5];
 
@@ -83,7 +85,10 @@ export function generateModifyVars() {
     primaryColorObj[`primary-${index + 1}`] = palettes[index];
   }
 
+  const modifyVars = getThemeVariables({ dark });
+
   return {
+    ...modifyVars,
     hack: `true;@import (reference) "/src/design/config.less"`,
     'primary-color': primary,
     ...primaryColorObj,

@@ -34,8 +34,6 @@ export function initAppConfigStore() {
     if (themeColor && themeColor == !primaryColor) {
       changeTheme(themeColor);
     }
-    headerBgColor && updateHeaderBgColor(headerBgColor);
-    bgColor && updateSidebarBgColor(bgColor);
     grayMode && updateGrayMode(grayMode);
     colorWeak && updateColorWeak(colorWeak);
   } catch (error) {
@@ -45,6 +43,13 @@ export function initAppConfigStore() {
 
   //黑暗模式
   updateDarkTheme(darkMode);
+  if (darkMode === 'dark') {
+    updateHeaderBgColor();
+    updateSidebarBgColor();
+  } else {
+    headerBgColor && updateHeaderBgColor(headerBgColor);
+    bgColor && updateSidebarBgColor(bgColor);
+  }
   store.dispatch('locale/initLocale');
 
   setTimeout(() => {

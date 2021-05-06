@@ -16,7 +16,14 @@ const SIDER_LIGHTEN_2_BG_COLOR = '--sider-dark-lighten-2-bg-color';
 console.log(store);
 
 export function updateHeaderBgColor(color) {
-  if (!isHexColor(color)) return;
+  const darkMode = store.getters['app/getDarkMode'] === ThemeEnum.DARK;
+  if (!isHexColor(color)) {
+    if (darkMode) {
+      color = '#151515';
+    } else {
+      color = store.getters['app/getProjectConfig'].headerSetting.bgColor;
+    }
+  }
   setCssVar(HEADER_BG_COLOR_VAR, color);
 
   const hoverColor = lighten(color, 6);
@@ -29,7 +36,7 @@ export function updateHeaderBgColor(color) {
 
   store.commit('app/commitProjectConfigState', {
     headerSetting: {
-      theme: isDark ? ThemeEnum.DARK : ThemeEnum.LIGHT,
+      theme: isDark || darkMode ? ThemeEnum.DARK : ThemeEnum.LIGHT,
     },
   });
 }
