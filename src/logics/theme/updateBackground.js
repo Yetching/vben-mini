@@ -16,7 +16,14 @@ const SIDER_LIGHTEN_2_BG_COLOR = '--sider-dark-lighten-2-bg-color';
 console.log(store);
 
 export function updateHeaderBgColor(color) {
-  if (!isHexColor(color)) return;
+  const darkMode = store.getters['app/getDarkMode'] === 'dark';
+  if (!isHexColor(color)) {
+    if (darkMode) {
+      color = '#151515';
+    } else {
+      color = store.getters['app/getProjectConfig'].headerSetting.bgColor;
+    }
+  }
   setCssVar(HEADER_BG_COLOR_VAR, color);
 
   const hoverColor = lighten(color, 6);
@@ -35,14 +42,22 @@ export function updateHeaderBgColor(color) {
 }
 
 export function updateSidebarBgColor(color) {
-  if (!isHexColor(color)) return;
+  const darkMode = store.getters['app/getDarkMode'];
+
+  if (!isHexColor(color)) {
+    if (darkMode) {
+      color = '#212121';
+    } else {
+      color = store.getters['app/getProjectConfig'].menuSetting.bgColor;
+    }
+  }
 
   setCssVar(SIDER_DARK_BG_COLOR, color);
   setCssVar(SIDER_DARK_DARKEN_BG_COLOR, darken(color, 6));
   setCssVar(SIDER_LIGHTEN_1_BG_COLOR, lighten(color, 5));
   setCssVar(SIDER_LIGHTEN_2_BG_COLOR, lighten(color, 8));
 
-  const isLight = ['#fff', '#ffffff'].includes(color.toLowerCase());
+  // const isLight = ['#fff', '#ffffff'].includes(color.toLowerCase());
 
-  console.log('是否为明亮主题:' + isLight);
+  // console.log('是否为明亮主题:' + isLight);
 }

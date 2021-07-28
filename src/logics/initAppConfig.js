@@ -22,20 +22,17 @@ export function initAppConfigStore() {
   projCfg = deepMerge(projectSetting, projCfg || {});
 
   const darkMode = store.getters['app/getDarkMode'];
-
+  const {
+    colorWeak,
+    grayMode,
+    themeColor,
+    headerSetting: { bgColor: headerBgColor } = {},
+    menuSetting: { bgColor } = {},
+  } = projCfg;
   try {
-    const {
-      colorWeak,
-      grayMode,
-      themeColor,
-      headerSetting: { bgColor: headerBgColor } = {},
-      menuSetting: { bgColor } = {},
-    } = projCfg;
     if (themeColor && themeColor == !primaryColor) {
       changeTheme(themeColor);
     }
-    headerBgColor && updateHeaderBgColor(headerBgColor);
-    bgColor && updateSidebarBgColor(bgColor);
     grayMode && updateGrayMode(grayMode);
     colorWeak && updateColorWeak(colorWeak);
   } catch (error) {
@@ -45,6 +42,13 @@ export function initAppConfigStore() {
 
   //黑暗模式
   updateDarkTheme(darkMode);
+  if (darkMode === 'dark') {
+    updateHeaderBgColor();
+    updateSidebarBgColor();
+  } else {
+    headerBgColor && updateHeaderBgColor(headerBgColor);
+    bgColor && updateSidebarBgColor(bgColor);
+  }
   store.dispatch('locale/initLocale');
 
   setTimeout(() => {
