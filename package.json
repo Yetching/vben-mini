@@ -5,7 +5,8 @@
     "dev": "cross-env NODE_ENV=development vite",
     "test": "cross-env NODE_ENV=test vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "release": "node ./scripts/release.js"
   },
   "dependencies": {
     "@vueuse/core": "^4.8.1",
