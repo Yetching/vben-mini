@@ -1,4 +1,8 @@
 import { generate } from '@ant-design/colors';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7b19ffbd13b541c2d1af2119cd02be849e36811e
 import { getThemeVariables } from 'ant-design-vue/dist/theme';
 // import { resolve } from 'path';
 

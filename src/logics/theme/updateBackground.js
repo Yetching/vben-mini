@@ -16,7 +16,11 @@ const SIDER_LIGHTEN_2_BG_COLOR = '--sider-dark-lighten-2-bg-color';
 console.log(store);
 
 export function updateHeaderBgColor(color) {
+<<<<<<< HEAD
   const darkMode = store.getters['app/getDarkMode'] === 'dark';
+=======
+  const darkMode = store.getters['app/getDarkMode'] === ThemeEnum.DARK;
+>>>>>>> 7b19ffbd13b541c2d1af2119cd02be849e36811e
   if (!isHexColor(color)) {
     if (darkMode) {
       color = '#151515';
@@ -36,7 +40,7 @@ export function updateHeaderBgColor(color) {
 
   store.commit('app/commitProjectConfigState', {
     headerSetting: {
-      theme: isDark ? ThemeEnum.DARK : ThemeEnum.LIGHT,
+      theme: isDark || darkMode ? ThemeEnum.DARK : ThemeEnum.LIGHT,
     },
   });
 }
